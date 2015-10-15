@@ -1,0 +1,26 @@
+{
+  "name": "spring-angular",
+  "version": "0.1.0",
+  "main": "dist/js/spring-angular.js",
+  "dependencies": {
+    "angular-cookies":"latest",
+    "fluid-web-components": "0.1.1",
+    "ui-router":"0.2.15"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.4.7"
+  },
+  "resolutions": {
+    "angular": "1.4.7"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "authors": [
+    "Jerico <jerico@jsofttechnologies.com>"
+  ]
+}
