@@ -1,6 +1,6 @@
 package com.jsofttechnologies.services;
 
-import com.jsofttechnologies.services.app.resource.UserRoleService;
+import com.jsofttechnologies.services.app.UserRoleService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

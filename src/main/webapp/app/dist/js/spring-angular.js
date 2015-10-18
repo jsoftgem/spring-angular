@@ -1,4 +1,71 @@
 /**
+ * Created by Jerico on 18/10/2015.
+ */
+
+angular.module("sp.models", ["sp.model.base", "sp.model.user"])
+    .config(["BaseClassProvider", function (BaseClassProvider) {
+        BaseClassProvider.setContext("http://localhost:8080/spring-angular/");
+    }])
+    .service("modelHelper", [function () {
+
+        this.setContext = function (context) {
+            this.context = context;
+        };
+
+        this.withHost = function (url) {
+            if (this.context) {
+                if (url && url.charAt(0) === '/') {
+                    url = url.substring(1, url.length - 1);
+                }
+                return this.context + url;
+            } else {
+                return url;
+            }
+        };
+
+        return this;
+    }]);
+;/**
+ * Created by Jerico on 18/10/2015.
+ */
+
+angular.module("sp.model.user", [])
+    .factory("User", ["BaseClass", function (BaseClass) {
+        var user = function User() {
+        };
+        user.inherits(BaseClass);
+
+        return user;
+    }]);;/**
+ * Created by Jerico on 18/10/2015.
+ */
+
+Function.prototype.inherits = function (baseClass) {
+    var _constructor = this;
+    _constructor = baseClass.apply(_constructor);
+};
+
+angular.module("sp.model.base", [])
+    .provider("BaseClass", function () {
+
+        this.context = "";
+
+        this.setContext = function (context) {
+            this.content = context ? context : "";
+        };
+
+        this.$get = function (modelHelper) {
+            var BaseClass = {};
+
+            modelHelper.setContext(this.context);
+
+            BaseClass.$setUrl = function (url) {
+                BaseClass.url = modelHelper.withHost(url);
+            };
+
+            return BaseClass;
+        };
+    });;/**
  * Created by Jerico on 15/10/2015.
  */
 angular.module('spAuthentication',[])
@@ -8,19 +75,6 @@ angular.module('spAuthentication',[])
 
             service.Login = function (username, password, callback) {
 
-                /* Dummy authentication for testing, uses $timeout to simulate api call
-                 �������������----------------------------------------------
-                 $timeout(function () {
-                 var response = {success: username === 'test' && password === 'test'};
-                 if (!response.success) {
-                 response.message = 'Username or password is incorrect';
-                 }
-                 callback(response);
-                 }, 1000);
-                 */
-
-                /* Use this for real authentication
-                 �������������----------------------------------------------*/
                 $http.post(spH.withContext(LURL), {username: username, password: password})
                     .success(function (response) {
                         callback(response);
@@ -135,7 +189,7 @@ angular.module('spAuthentication',[])
         };
 
         /* jshint ignore:end */
-    });/**
+    });;/**
  * Created by Jerico on 15/10/2015.
  */
 angular.module("spConfig", [])
@@ -161,7 +215,8 @@ angular.module("spSession", [])
                 alert("login successful!");
                 authService.SetCredentials(username, password);
             });
-        }
+        };
+
     }]);;/**
  * Created by Jerico on 14/10/2015.
  */
@@ -176,9 +231,9 @@ angular.module("spApp", ["spTemplates", "fluid.webComponents", "spConfig", "spAu
     }])
     .controller("mainCtrl", ["$scope", function ($s) {
 
-    }]);;angular.module('spTemplates', ['templates/home.html']);
+    }]);;angular.module('spTemplates', ['main/webapp/app/src/templates/home.html']);
 
-angular.module("templates/home.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("templates/home.html",
+angular.module("main/webapp/app/src/templates/home.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("main/webapp/app/src/templates/home.html",
     "<div class=\"container center-in\"><div class=\"jumbotron\"><h1>Welcome to Spring-angular project</h1><h5>Version 1.0</h5><h5>Concept by Jerico de Guzman</h5><form role=\"form\" class=\"login-form\" ng-submit=\"login(username,password)\"><h2 class=\"text-primary\">Login</h2><div class=\"col-lg-6 form-group form-group-lg\"><label class=\"control-label\" for=\"usernameField\">Username</label><input class=\"form-control\" id=\"usernameField\" ng-model=\"username\"></div><div class=\"col-lg-6 form-group form-group-lg\"><label class=\"control-label\" for=\"passwordField\">Password</label><input type=\"password\" class=\"form-control\" id=\"passwordField\" ng-model=\"password\"></div><button class=\"btn btn-info\" type=\"submit\">Submit</button></form></div></div>");
 }]);

@@ -9,5 +9,6 @@ angular.module("spSession", [])
                 alert("login successful!");
                 authService.SetCredentials(username, password);
             });
-        }
+        };
+
     }]);

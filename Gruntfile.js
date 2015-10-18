@@ -18,7 +18,7 @@ module.exports = function (grunt) {
                 }
             },
             jshint: {
-                all: ['Gruntfile.js', 'src/js/**/*.js', '**/*.js']
+                all: ['Gruntfile.js', 'src/main/webapp/app/src/js/**/*.js']
             },
             karma: {
                 unit: {
@@ -38,7 +38,7 @@ module.exports = function (grunt) {
                     }
                 },
                 dist: {
-                    src: ['src/templates/**/*.html'],
+                    src: ['src/main/webapp/app/src/templates/**/*.html'],
                     dest: 'tmp/templates.js'
                 }
             },
@@ -47,15 +47,15 @@ module.exports = function (grunt) {
                     separator: ';'
                 },
                 dist: {
-                    src: ['src/js/**/*.js', 'tmp/*.js'],
-                    dest: 'dist/js/spring-angular.js'
+                    src: ['src/main/webapp/app/src/js/**/*.js', 'tmp/*.js'],
+                    dest: 'src/main/webapp/app/dist/js/spring-angular.js'
                 }
             },
             uglify: {
                 dist: {
                     files: [
                         {
-                            'dist/js/spring-angular.min.js': ['dist/js/spring-angular.js'],
+                            'src/main/webapp/app/dist/js/spring-angular.min.js': ['src/main/webapp/app/dist/js/spring-angular.js'],
                         }
                     ],
                     options: {
@@ -68,9 +68,9 @@ module.exports = function (grunt) {
                     files: [
                         {
                             expand: true,
-                            cwd: 'dist/css',
+                            cwd: 'src/main/webapp/app/dist/css',
                             src: ['**/*.css'],
-                            dest: 'dist/css',
+                            dest: 'src/main/webapp/app/dist/css',
                             ext: '.min.css'
                         }]
                 }
@@ -78,51 +78,43 @@ module.exports = function (grunt) {
             concat_css: {
                 options: {},
                 all: {
-                    src: ["src/css/**/*.css", "css/**/*.min.css"],
-                    dest: "dist/css/spring-angular.css"
+                    src: ["src/main/webapp/app/src/css/**/*.css", "src/main/webapp/app/css/**/*.min.css"],
+                    dest: "src/main/webapp/app/dist/css/spring-angular.css"
                 }
-            }
-            , clean: {
+            },
+            clean: {
                 temp: {
-                    src: ['tmp', 'dist/css/*.css']
+                    src: ['tmp', 'src/main/webapp/app/dist/css/*.css']
                 }
             },
             watch: {
                 scss: {
-                    files: ["src/sass/**/*.scss"],
+                    files: ["src/main/webapp/app/src/sass/**/*.scss"],
                     tasks: ['sass', 'concat_css', 'cssmin'],
                     options: {
                         atBegin: true
                     }
                 },
                 dev: {
-                    files: ['Gruntfile.js', 'src/js/**/*.js', 'src/templates/**/*.html'],
-                    tasks: ['html2js:dist', 'concat:dist', 'uglify:dist', 'clean:temp', 'compress:dist', 'sass', 'concat_css', 'cssmin'],
-                    options: {
-                        atBegin: true
-                    }
-                },
-                min: {
-                    files: ['Gruntfile.js', 'app/*.js', '*.html'],
-                    tasks: ['jshint', 'karma:unit', 'html2js:dist', 'concat:dist', 'clean:temp', 'uglify:dist'],
+                    files: ['Gruntfile.js', 'src/main/webapp/app/src/**/*', 'src/main/webapp/app/test/**/*'],
+                    tasks: ['html2js:dist', 'concat:dist', 'uglify:dist', 'clean:temp', 'compress:dist', 'sass', 'concat_css', 'cssmin', 'karma'],
                     options: {
                         atBegin: true
                     }
                 }
-            }
-            ,
+            },
             compress: {
                 dist: {
                     files: [{
-                        src: ['dist/**'],
-                        dest: 'dist/'
+                        src: ['src/main/webapp/app/dist/**'],
+                        dest: 'src/main/webapp/app/dist/'
                     }]
                 }
             },
             strip: {
                 main: {
-                    src: 'dist/js/spring-angular.js',
-                    dest: 'dist/js/spring-angular.js',
+                    src: 'src/main/webapp/app/dist/js/spring-angular.js',
+                    dest: 'src/main/webapp/app/dist/js/spring-angular.js',
                     nodes: ['console', 'debug', 'info', 'log']
                 }
             },
@@ -132,7 +124,7 @@ module.exports = function (grunt) {
                         style: 'expanded'
                     },
                     files: {
-                        'src/css/sass.css': 'src/sass/**/*.scss'
+                        'src/main/webapp/app/src/css/sass.css': 'src/main/webapp/app/src/sass/**/*.scss'
                     }
                 }
             }
@@ -154,16 +146,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-strip');
     grunt.loadNpmTasks('grunt-contrib-sass');
 
-    /*
-     grunt.registerTask('dev', ['bower', 'connect:server', 'watch:dev']);
-     grunt.registerTask('test', ['bower', 'jshint', 'karma:continuous']);
-     grunt.registerTask('minified', ['bower', 'connect:server', 'watch:min']);
-     grunt.registerTask('package', ['bower', 'jshint', 'karma:unit', 'html2js:dist', 'concat:dist', 'uglify:dist',
-     'clean:temp', 'compress:dist']);*/
     grunt.registerTask('dev-package', ['bower', 'html2js:dist', 'concat:dist', 'uglify:dist',
-        'clean:temp', 'compress:dist', 'sass', 'concat_css', 'cssmin', 'watch:dev']);
+        'clean:temp', 'compress:dist', 'sass', 'concat_css', 'cssmin', 'jshint', 'watch:dev']);
     grunt.registerTask('test-package', ['bower', 'html2js:dist', 'concat:dist', 'uglify:dist',
         'clean:temp', 'compress:dist', 'sass', 'concat_css', 'cssmin', 'karma:unit']);
     grunt.registerTask('package', ['bower', 'html2js:dist', 'concat:dist', 'strip', 'uglify:dist',
+
         'clean:temp', 'compress:dist', 'sass', 'concat_css', 'cssmin']);
-}
+};

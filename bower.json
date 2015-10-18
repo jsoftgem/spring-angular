@@ -1,11 +1,11 @@
 {
   "name": "spring-angular",
   "version": "0.1.0",
-  "main": "dist/js/spring-angular.js",
+  "main": "src/main/webapp/app/dist/js/spring-angular.js",
   "dependencies": {
-    "angular-cookies":"latest",
+    "angular-cookies": "latest",
     "fluid-web-components": "0.1.1",
-    "ui-router":"0.2.15"
+    "ui-router": "0.2.15"
   },
   "devDependencies": {
     "angular-mocks": "1.4.7"
