@@ -13,7 +13,7 @@ angular.module("sp.model.base", [])
 
             modelHelper.setContext(this.context);
 
-            var BaseClass = function (attributes) {
+            function BaseClass(attributes) {
 
                 var _constructor = this;
                 var _prototype = _constructor.prototype;
@@ -34,8 +34,8 @@ angular.module("sp.model.base", [])
                     return instance;
                 };
 
-
                 _constructor.cached = new ModelCache();
+
                 _constructor.$setUrl = setUrl;
             };
 
