@@ -1,15 +1,20 @@
 /**
  * Created by Jerico on 14/10/2015.
  */
-angular.module("spApp", ["spTemplates", "fluid.webComponents", "spConfig", "spAuthentication", "spSession", "ui.router", "ngCookies"])
-    .config(["$stateProvider", "$urlRouterProvider", function (sp, urp) {
-        urp.otherwise("/");
-        sp.state("home", {
-            url: "/",
-            templateUrl: "templates/home.html",
-            controller: "sessionCtrl"
-        });
-    }])
-    .controller("mainCtrl", ["$scope", function ($s) {
+(function () {
+    'use strict';
+    angular.module("spApp", ["spTemplates", "oc.lazyLoad", "spConfig", "spAuthentication", "spSession", "ui.router", "ngCookies", "ActiveResource"])
+        .config(["$stateProvider", "$urlRouterProvider", function (sp, urp) {
+            urp.otherwise("/");
 
-    }]);
+            sp.state("spa", {
+                url: "/",
+                templateProvider: function ($templateCache) {
+                    return $templateCache.get("main/webapp/app/src/templates/app/home.html");
+                },
+                controller: "sessionCtrl"
+            });
+
+        }]);
+})();
+

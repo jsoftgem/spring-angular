@@ -97,7 +97,7 @@ module.exports = function (grunt) {
                 },
                 dev: {
                     files: ['Gruntfile.js', 'src/main/webapp/app/src/**/*', 'src/main/webapp/app/test/**/*'],
-                    tasks: ['html2js:dist', 'concat:dist', 'uglify:dist', 'clean:temp', 'compress:dist', 'sass', 'concat_css', 'cssmin', 'karma'],
+                    tasks: ['html2js:dist', 'concat:dist', 'uglify:dist', 'clean:temp', 'compress:dist', 'sass', 'concat_css', 'cssmin'],
                     options: {
                         atBegin: true
                     }
@@ -144,12 +144,14 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-strip');
-    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-sass');
 
     grunt.registerTask('dev-package', ['bower', 'html2js:dist', 'concat:dist', 'uglify:dist',
         'clean:temp', 'compress:dist', 'sass', 'concat_css', 'cssmin', 'jshint', 'watch:dev']);
+
     grunt.registerTask('test-package', ['bower', 'html2js:dist', 'concat:dist', 'uglify:dist',
         'clean:temp', 'compress:dist', 'sass', 'concat_css', 'cssmin', 'karma:unit']);
+
     grunt.registerTask('package', ['bower', 'html2js:dist', 'concat:dist', 'strip', 'uglify:dist',
 
         'clean:temp', 'compress:dist', 'sass', 'concat_css', 'cssmin']);

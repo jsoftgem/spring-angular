@@ -1,39 +1,4 @@
 /**
- * Created by Jerico on 22/10/2015.
- */
-(function () {
-
-    'use strict';
-
-
-    angular.module("user.controller", [])
-        .controller("userCtrl", UserController);
-
-
-    function UserController($scope) {
-
-    }
-
-
-})();;/**
- * Created by Jerico on 22/10/2015.
- */
-(function () {
-    "use strict";
-
-    angular.module("models.user", [])
-        .factory("User", UserModel);
-
-    function UserModel(ActiveResource) {
-        function User(attr) {
-        }
-
-        User.api.set("services/user");
-        User.inherits(ActiveResource);
-        return User;
-    }
-
-})();;/**
  * Created by Jerico on 15/10/2015.
  */
 (function () {
@@ -161,57 +126,4 @@
 
             /* jshint ignore:end */
         });
-})();;(function () {
-    'use strict';
-    angular.module("spConfig", [])
-        .constant("BASE_CONTEXT", "")
-        .constant("LOGIN_URL", "api/login")
-        .service("spHelper", ["BASE_CONTEXT", function (BC) {
-            this.withContext = function (url) {
-                if (url && url.charAt(0) === '/') {
-                    url = url.substring(1, url.length - 1);
-                }
-                return BC + url;
-            };
-
-            return this;
-        }]);
-})();;(function () {
-    'use strict';
-    angular.module("spSession", [])
-        .controller("sessionCtrl", ["$scope", "AuthenticationService", function ($s, authService) {
-
-            $s.login = function (username, password) {
-                authService.Login(username, password, function (response) {
-                    alert("login successful!");
-                    authService.SetCredentials(username, password);
-                });
-            };
-
-        }]);
-})();;/**
- * Created by Jerico on 14/10/2015.
- */
-(function () {
-    'use strict';
-    angular.module("spApp", ["spTemplates", "oc.lazyLoad", "spConfig", "spAuthentication", "spSession", "ui.router", "ngCookies", "ActiveResource"])
-        .config(["$stateProvider", "$urlRouterProvider", function (sp, urp) {
-            urp.otherwise("/");
-
-            sp.state("spa", {
-                url: "/",
-                templateProvider: function ($templateCache) {
-                    return $templateCache.get("main/webapp/app/src/templates/app/home.html");
-                },
-                controller: "sessionCtrl"
-            });
-
-        }]);
 })();
-
-;angular.module('spTemplates', ['main/webapp/app/src/templates/app/home.html']);
-
-angular.module("main/webapp/app/src/templates/app/home.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("main/webapp/app/src/templates/app/home.html",
-    "<div><h1>Welcome to Spring-angular application</h1><section></section></div>");
-}]);
