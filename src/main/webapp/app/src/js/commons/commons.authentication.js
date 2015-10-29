@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    angular.module('spAuthentication', [])
+    angular.module('commons.authentication', [])
         .factory('AuthenticationService', ['Base64', '$http', '$cookieStore', '$rootScope', '$timeout', "spHelper", "LOGIN_URL",
             function (Base64, $http, $cookieStore, $rootScope, $timeout, spH, LURL) {
                 var service = {};

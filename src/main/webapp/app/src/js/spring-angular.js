@@ -3,16 +3,27 @@
  */
 (function () {
     'use strict';
-    angular.module("spApp", ["spTemplates", "oc.lazyLoad", "sp.core", "spConfig", "spAuthentication", "spSession", "ui.router", "ngCookies", "ActiveResource"])
-        .config(["$stateProvider", "$urlRouterProvider", function (sp, urp) {
-            urp.otherwise("/");
-            sp.state("spa", {
-                url: "/",
+    angular.module('spApp', ['spTemplates', 'oc.lazyLoad', 'sp.core', 'sp.commons', 'ui.router', 'ngCookies', 'ActiveResource', 'ngMaterial'])
+        .config(['$stateProvider', '$urlRouterProvider', function (sp, urp) {
+            urp.otherwise('/');
+
+            sp.state('spa', {
+                url: '/',
                 templateProvider: function ($templateCache) {
-                    return $templateCache.get("main/webapp/app/src/templates/app/home.html");
+                    return $templateCache.get('main/webapp/app/src/templates/app/home.html');
                 },
-                controller: "sessionCtrl"
-            });
+                controller: 'sessionCtrl'
+            })
+                .state('spa.main', {
+                    url: 'main',
+                    controller: 'mainCtrl',
+                    templateUrl: 'app/app/Main/main.html',
+                    resolve: {
+                        loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load('app/app/Main/main.controller.js');
+                        }]
+                    }
+                });
         }]);
 })();
 

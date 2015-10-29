@@ -1,12 +1,11 @@
 (function () {
     'use strict';
-    angular.module("spSession", [])
-        .controller("sessionCtrl", ["$scope", "AuthenticationService", function ($s, authService) {
-
+    angular.module('commons.session', [])
+        .controller('sessionCtrl', ['$scope', 'AuthenticationService', '$ocLazyLoad', '$state', function ($s, authService, $ocLazyLoad, $state) {
             $s.login = function (username, password) {
                 authService.Login(username, password, function (response) {
-                    alert("login successful!");
                     authService.SetCredentials(username, password);
+                    $state.go('spa.main');
                 });
             };
 

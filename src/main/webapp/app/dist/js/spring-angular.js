@@ -16,30 +16,12 @@
 
 
 })();;/**
- * Created by Jerico on 22/10/2015.
- */
-(function () {
-    "use strict";
-
-    angular.module("models.user", [])
-        .factory("User", UserModel);
-
-    function UserModel(ActiveResource) {
-        function User(attr) {
-        }
-
-        User.api.set("services/user");
-        User.inherits(ActiveResource);
-        return User;
-    }
-
-})();;/**
  * Created by Jerico on 15/10/2015.
  */
 (function () {
     'use strict';
 
-    angular.module('spAuthentication', [])
+    angular.module('commons.authentication', [])
         .factory('AuthenticationService', ['Base64', '$http', '$cookieStore', '$rootScope', '$timeout', "spHelper", "LOGIN_URL",
             function (Base64, $http, $cookieStore, $rootScope, $timeout, spH, LURL) {
                 var service = {};
@@ -163,7 +145,7 @@
         });
 })();;(function () {
     'use strict';
-    angular.module("spConfig", [])
+    angular.module("commons.config", [])
         .constant("BASE_CONTEXT", "")
         .constant("LOGIN_URL", "api/login")
         .service("spHelper", ["BASE_CONTEXT", function (BC) {
@@ -178,17 +160,43 @@
         }]);
 })();;(function () {
     'use strict';
-    angular.module("spSession", [])
-        .controller("sessionCtrl", ["$scope", "AuthenticationService", function ($s, authService) {
-
+    angular.module('commons.models', ['models.user']);
+})
+();;(function () {
+    'use strict';
+    angular.module('commons.session', [])
+        .controller('sessionCtrl', ['$scope', 'AuthenticationService', '$ocLazyLoad', '$state', function ($s, authService, $ocLazyLoad, $state) {
             $s.login = function (username, password) {
                 authService.Login(username, password, function (response) {
-                    alert("login successful!");
                     authService.SetCredentials(username, password);
+                    $state.go('spa.main');
                 });
             };
 
         }]);
+})();;/**
+ * Created by Jerico on 22/10/2015.
+ */
+(function () {
+    "use strict";
+
+    angular.module("models.user", [])
+        .factory("User", UserModel);
+
+    function UserModel(ActiveResource) {
+        function User(attr) {
+        }
+
+        User.api.set("services/user");
+        User.inherits(ActiveResource);
+        return User;
+    }
+
+})();;(function () {
+    'use strict';
+
+    angular.module('sp.commons', ['commons.config', 'commons.authentication', 'commons.session', 'commons.models']);
+
 })();;/**
  * Created by Jerico on 29/10/2015.
  */
@@ -199,16 +207,27 @@
  */
 (function () {
     'use strict';
-    angular.module("spApp", ["spTemplates", "oc.lazyLoad", "sp.core", "spConfig", "spAuthentication", "spSession", "ui.router", "ngCookies", "ActiveResource"])
-        .config(["$stateProvider", "$urlRouterProvider", function (sp, urp) {
-            urp.otherwise("/");
-            sp.state("spa", {
-                url: "/",
+    angular.module('spApp', ['spTemplates', 'oc.lazyLoad', 'sp.core', 'sp.commons', 'ui.router', 'ngCookies', 'ActiveResource', 'ngMaterial'])
+        .config(['$stateProvider', '$urlRouterProvider', function (sp, urp) {
+            urp.otherwise('/');
+
+            sp.state('spa', {
+                url: '/',
                 templateProvider: function ($templateCache) {
-                    return $templateCache.get("main/webapp/app/src/templates/app/home.html");
+                    return $templateCache.get('main/webapp/app/src/templates/app/home.html');
                 },
-                controller: "sessionCtrl"
-            });
+                controller: 'sessionCtrl'
+            })
+                .state('spa.main', {
+                    url: 'main',
+                    controller: 'mainCtrl',
+                    templateUrl: 'app/app/Main/main.html',
+                    resolve: {
+                        loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load('app/app/Main/main.controller.js');
+                        }]
+                    }
+                });
         }]);
 })();
 
@@ -216,5 +235,5 @@
 
 angular.module("main/webapp/app/src/templates/app/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("main/webapp/app/src/templates/app/home.html",
-    "<div><h1>Welcome to Spring-angular application</h1><md-content md-theme=\"docs-dark\" layout-padding layout=\"row\" layout-sm=\"column\"><form><md-input-container><label for=\"username\">Username</label><input id=\"username\" type=\"text\"></md-input-container><md-input-container><label for=\"password\">Password</label><input id=\"password\" type=\"password\"></md-input-container></form></md-content></div>");
+    "<md-content layout=\"column\" layout-align=\"center center\" layout-wrap><h1>Welcome to Spring-angular application</h1><form ng-submit=\"login(username,password)\"><md-input-container><label for=\"username\">Username</label><input ng-model=\"username\" id=\"username\" type=\"text\"></md-input-container><md-input-container><label for=\"password\">Password</label><input ng-model=\"password\" id=\"password\" type=\"password\"></md-input-container><md-button class=\"md-raised\">Login</md-button></form></md-content>");
 }]);

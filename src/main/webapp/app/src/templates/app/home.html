@@ -1,16 +1,17 @@
-<div>
+<md-content layout="column" layout-align="center center" layout-wrap>
     <h1>Welcome to Spring-angular application</h1>
-    <md-content md-theme="docs-dark" layout-padding layout="row" layout-sm="column">
-        <form>
-            <md-input-container>
-                <label for="username">Username</label>
-                <input id="username" type="text">
-            </md-input-container>
 
-            <md-input-container>
-                <label for="password">Password</label>
-                <input id="password" type="password">
-            </md-input-container>
-        </form>
-    </md-content>
-</div>
+    <form ng-submit="login(username,password)">
+        <md-input-container>
+            <label for="username">Username</label>
+            <input ng-model="username" id="username" type="text">
+        </md-input-container>
+
+        <md-input-container>
+            <label for="password">Password</label>
+            <input ng-model="password" id="password" type="password">
+        </md-input-container>
+
+        <md-button class="md-raised">Login</md-button>
+    </form>
+</md-content>
