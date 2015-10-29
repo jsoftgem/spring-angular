@@ -3,10 +3,9 @@
  */
 (function () {
     'use strict';
-    angular.module("spApp", ["spTemplates", "oc.lazyLoad", "spConfig", "spAuthentication", "spSession", "ui.router", "ngCookies", "ActiveResource"])
+    angular.module("spApp", ["spTemplates", "oc.lazyLoad", "sp.core", "spConfig", "spAuthentication", "spSession", "ui.router", "ngCookies", "ActiveResource"])
         .config(["$stateProvider", "$urlRouterProvider", function (sp, urp) {
             urp.otherwise("/");
-
             sp.state("spa", {
                 url: "/",
                 templateProvider: function ($templateCache) {
@@ -14,7 +13,6 @@
                 },
                 controller: "sessionCtrl"
             });
-
         }]);
 })();
 

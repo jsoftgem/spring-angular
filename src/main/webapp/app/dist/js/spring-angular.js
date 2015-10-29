@@ -190,14 +190,18 @@
 
         }]);
 })();;/**
+ * Created by Jerico on 29/10/2015.
+ */
+(function () {
+    angular.module("sp.core", []);
+})();;/**
  * Created by Jerico on 14/10/2015.
  */
 (function () {
     'use strict';
-    angular.module("spApp", ["spTemplates", "oc.lazyLoad", "spConfig", "spAuthentication", "spSession", "ui.router", "ngCookies", "ActiveResource"])
+    angular.module("spApp", ["spTemplates", "oc.lazyLoad", "sp.core", "spConfig", "spAuthentication", "spSession", "ui.router", "ngCookies", "ActiveResource"])
         .config(["$stateProvider", "$urlRouterProvider", function (sp, urp) {
             urp.otherwise("/");
-
             sp.state("spa", {
                 url: "/",
                 templateProvider: function ($templateCache) {
@@ -205,7 +209,6 @@
                 },
                 controller: "sessionCtrl"
             });
-
         }]);
 })();
 
@@ -213,5 +216,5 @@
 
 angular.module("main/webapp/app/src/templates/app/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("main/webapp/app/src/templates/app/home.html",
-    "<div><h1>Welcome to Spring-angular application</h1><section></section></div>");
+    "<div><h1>Welcome to Spring-angular application</h1><md-content md-theme=\"docs-dark\" layout-padding layout=\"row\" layout-sm=\"column\"><form><md-input-container><label for=\"username\">Username</label><input id=\"username\" type=\"text\"></md-input-container><md-input-container><label for=\"password\">Password</label><input id=\"password\" type=\"password\"></md-input-container></form></md-content></div>");
 }]);
