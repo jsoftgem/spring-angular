@@ -13,20 +13,12 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'src/main/webapp/app/bower_components/angular/angular.js',
-            'src/main/webapp/app/bower_components/angular-filter/dist/angular-filter.js',
-            'src/main/webapp/app/bower_components/angular-mocks/angular-mocks.js',
-            'src/main/webapp/app/src/js/**/*.js',
-            'src/main/webapp/app/src/templates/**/*.html',
-            'src/main/webapp/app/test/js/**/*.js'
         ],
         // list of files to exclude
         exclude: [],
-
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {},
-
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter

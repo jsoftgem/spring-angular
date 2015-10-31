@@ -1,6 +1,7 @@
 (function () {
     'use strict';
-    angular.module("commons.config", [])
+
+    angular.module('commons.config', [])
         .constant("BASE_CONTEXT", "")
         .constant("LOGIN_URL", "api/login")
         .service("spHelper", ["BASE_CONTEXT", function (BC) {
@@ -13,4 +14,5 @@
 
             return this;
         }]);
+
 })();
