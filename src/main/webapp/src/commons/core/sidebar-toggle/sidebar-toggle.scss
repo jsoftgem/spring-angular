@@ -1,0 +1,37 @@
+@import "../../../styles/variables";
+
+.sidebar-toggle-button-style {
+  cursor: pointer;
+  width: $sidebar-button-width;
+  height: $sidebar-button-height;
+  margin: auto;
+  border: none;
+  outline: none;
+  background: $sidebar-button-background;
+  font-size: $sidebar-button-toggled-font-size;
+}
+
+.sidebar-toggle-button {
+  @extend .sidebar-toggle-button-style;
+  float: right;
+  color: $sidebar-button-un-toggled-color;
+}
+
+.sidebar-toggle-button:before {
+  content: "\e257";
+}
+
+.toggled .sidebar-toggle-button {
+  @extend .sidebar-toggle-button-style;
+  top: $main-top;
+  position: fixed;
+  float: left;
+  color: $sidebar-button-toggled-color;
+
+}
+
+.toggled .sidebar-toggle-button:before {
+  content: "\e258";
+}
+
+

@@ -90,7 +90,7 @@ module.exports = function (grunt) {
                     style: 'expanded'
                 },
                 files: {
-                    'src/main/webapp/src/sass.css': 'src/main/webapp/src/**/*.scss'
+                    'src/main/webapp/src/sass.css': 'src/main/webapp/src/styles/main.scss'
                 }
             }
         },
@@ -98,6 +98,18 @@ module.exports = function (grunt) {
             scripts: {
                 files: 'src/main/webapp/src/**/*',
                 tasks: ["jshint", 'html2js:dist', 'concat:app', 'concat:vendor', 'sass:dist', 'concat_css:app', 'concat_css:vendor', 'clean:temp']
+            }
+        },
+        copy: {
+            main: {
+                files: [
+                    {
+                        expand: true, flatten: true,
+                        src: ['bower_components/bootstrap/fonts/*'],
+                        dest: 'src/main/webapp/bin/fonts/',
+                        filter: 'isFile'
+                    }
+                ]
             }
         }
     });
@@ -109,12 +121,16 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-concat-css');
     grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-sass');
 
-    grunt.registerTask("dev-run", ["jshint", 'html2js:dist', 'concat:app', 'concat:vendor', 'sass:dist', 'concat_css:app', 'concat_css:vendor', 'clean:temp', 'watch']);
+    grunt.registerTask("install-run", ["jshint", 'html2js:dist', 'concat:app', 'concat:vendor', 'sass:dist', 'concat_css:app', 'concat_css:vendor', 'copy:main', 'clean:temp']);
+
+    grunt.registerTask("dev-run", ["jshint", 'html2js:dist', 'concat:app', 'sass:dist', 'concat_css:app', 'clean:temp', 'watch']);
+
     grunt.registerTask("prod-run", ["jshint", 'html2js:dist', 'concat:app', 'concat:vendor', 'uglify', 'sass:dist', 'concat_css:app', 'concat_css:vendor', 'cssmin', 'clean:temp']);
 
 };

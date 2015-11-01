@@ -2,12 +2,11 @@
     'use strict';
 
     angular.module('main.controller', [])
-        .controller('mainCtrl', ['$scope', '$state', MainCtrl]);
+        .controller('mainCtrl', MainCtrl);
 
+    MainCtrl.$inject = ['$scope', '$state', '$cookieStore'];
 
-    function MainCtrl($scope, $state) {
-        $scope.login = function () {
-            $state.go('login');
-        };
+    function MainCtrl($scope, $state, $cookieStore) {
+        $state.go('main.home');
     }
 })();

@@ -15,12 +15,6 @@
                 return $templateCache.get('main/main.html');
             }],
             controller: 'mainCtrl'
-        }).state('login', {
-            url: '/login',
-            templateProvider: ['$templateCache', function ($templateCache) {
-                return $templateCache.get('login/login.html');
-            }],
-            controller: 'loginCtrl'
         });
 
     }

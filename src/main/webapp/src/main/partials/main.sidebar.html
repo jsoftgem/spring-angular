@@ -1,0 +1,8 @@
+<div>
+    <ul class="sidebar-nav">
+        <button class="glyphicon" toggle-sidebar type="button"></button>
+        <li ng-repeat="menu in sidebarMenu">
+            <a name="{{menu.name}}" href="#" ui-sref="{{menu.ref}}">{{menu.label}}</a>
+        </li>
+    </ul>
+</div>
