@@ -38,7 +38,9 @@ module.exports = function (grunt) {
                 src: ['bower_components/jquery/dist/jquery.js', 'bower_components/angular/angular.js',
                     'bower_components/angular-cookies/angular-cookies.js',
                     'bower_components/ui-router/release/angular-ui-router.js',
-                    'bower_components/bootstrap/dist/js/bootstrap.js'],
+                    'bower_components/bootstrap/dist/js/bootstrap.js',
+                    'bower_components/lodash/lodash.js',
+                    'bower_components/ActiveResource/dist/ng-active-resource.js'],
                 dest: 'src/main/webapp/bin/js/vendor.js'
             }
         },

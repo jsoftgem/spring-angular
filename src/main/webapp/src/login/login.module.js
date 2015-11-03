@@ -1,6 +1,6 @@
 (function(){
     'use strict';
 
-    angular.module('sp.login',['login.controller']);
+    angular.module('sp.login',['login.controller','login.route']);
 
 })();

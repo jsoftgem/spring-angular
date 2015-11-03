@@ -15,7 +15,6 @@ public class UserResourceASM extends ResourceAssemblerSupport<UserJPA, UserResou
 
     private Class controllerClass;
 
-
     public UserResourceASM(Class controllerClass) {
         super(controllerClass, UserResource.class);
         this.controllerClass = controllerClass;

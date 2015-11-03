@@ -12,9 +12,6 @@ import org.springframework.hateoas.ResourceSupport;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Jerico on 15/10/2015.
- */
 @ResourceAssembler(controllerClass = UserRoleRest.class, resourceAssemblerSupport = UserRoleResourceASM.class)
 public class UserRoleImpl extends ResourceSupport implements UserRole {
 

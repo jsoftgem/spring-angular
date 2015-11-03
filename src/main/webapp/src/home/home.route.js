@@ -13,7 +13,7 @@
                     templateProvider: ['$templateCache', function ($templateCache) {
                         return $templateCache.get('main/partials/main.menubar.html');
                     }],
-                    controller: 'homeCtrl'
+                    controller: 'homeMenuBarCtrl'
                 },
                 'sideBar': {
                     resolve: {

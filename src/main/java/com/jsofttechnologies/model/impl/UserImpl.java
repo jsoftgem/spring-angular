@@ -13,9 +13,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by Jerico on 15/10/2015.
- */
 @ResourceAssembler(controllerClass = UserRest.class, resourceAssemblerSupport = UserResourceASM.class)
 public class UserImpl extends ResourceSupport implements User {
 
