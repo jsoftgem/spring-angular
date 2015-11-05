@@ -23,7 +23,7 @@
 
         $scope.logout = function () {
             $cookieStore.remove('globals');
-            $state.go('main');
+            $state.go('main.login');
         };
     }
 
